@@ -106,6 +106,8 @@
     <Compile Include="Fixtures\Tools\DotCover\Analyse\DotCoverAnalyserFixture.cs" />
     <Compile Include="Fixtures\Tools\DotCover\Cover\DotCoverCovererFixture.cs" />
     <Compile Include="Fixtures\Tools\DotCover\DotCoverFixture.cs" />
+    <Compile Include="Fixtures\Tools\DotNetCore\Build\DotNetCoreBuilderFixture.cs" />
+    <Compile Include="Fixtures\Tools\DotNetCore\DotNetCoreFixture.cs" />
     <Compile Include="Fixtures\Tools\DupFinder\DupFinderRunnerConfigFixture.cs" />
     <Compile Include="Fixtures\Tools\DupFinder\DupFinderRunnerFixture.cs" />
     <Compile Include="Fixtures\Tools\FixieRunnerFixture.cs" />
@@ -239,6 +241,7 @@
     <Compile Include="Unit\Tools\DotCover\Analyse\DotCoverAnalyserTests.cs" />
     <Compile Include="Unit\Tools\DotCover\Analyse\DotCoverAnalyseSettingsTests.cs" />
     <Compile Include="Unit\Tools\DotCover\Cover\DotCoverCovererTests.cs" />
+    <Compile Include="Unit\Tools\DotNetCore\Build\DotNetCoreBuilderTests.cs" />
     <Compile Include="Unit\Tools\DupFinder\DupFinderRunnerTests.cs" />
     <Compile Include="Unit\Tools\Fixie\FixieRunnerTests.cs" />
     <Compile Include="Unit\Tools\GitLink\GitlinkRunnerTests.cs" />
@@ -344,7 +347,11 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Unit\Tools\DotNetCore\Package\" />
+    <Folder Include="Unit\Tools\DotNetCore\Publish\" />
+    <Folder Include="Unit\Tools\DotNetCore\Restore\" />
+  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\xunit.core.2.1.0\build\portable-net45+win8+wp8+wpa81\xunit.core.props" Condition="Exists('..\packages\xunit.core.2.1.0\build\portable-net45+win8+wp8+wpa81\xunit.core.props')" />
