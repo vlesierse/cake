@@ -29,7 +29,7 @@ namespace Cake.Common.Tools.DotNetCore.Run
         }
 
         /// <summary>
-        /// Build the project using the specified path and settings.
+        /// Runs the project using the specified path and settings.
         /// </summary>
         /// <param name="path">The target file path.</param>
         /// <param name="settings">The settings.</param>
@@ -67,7 +67,7 @@ namespace Cake.Common.Tools.DotNetCore.Run
             if (!string.IsNullOrEmpty(settings.Configuration))
             {
                 builder.Append("--configuration");
-                builder.Append(settings.Framework);
+                builder.Append(settings.Configuration);
             }
 
             if (settings.PreserveTemporary)

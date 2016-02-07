@@ -108,6 +108,51 @@ namespace Cake.Common.Tools.DotNetCore.Build
                 builder.Append("--native");
             }
 
+            // IL Compiler Path
+            if (settings.ILCompilerPath != null)
+            {
+                builder.Append("--ilcpath");
+                builder.AppendQuoted(settings.ILCompilerPath.MakeAbsolute(_environment).FullPath);
+            }
+
+            // IL Compiler SDK Path
+            if (settings.ILCompilerSDKPath != null)
+            {
+                builder.Append("--ilcsdkpath");
+                builder.AppendQuoted(settings.ILCompilerSDKPath.MakeAbsolute(_environment).FullPath);
+            }
+
+            // Application Dependency SDK Path
+            if (settings.ApplicationDependencySDKPath != null)
+            {
+                builder.Append("--appdepsdkpath");
+                builder.AppendQuoted(settings.ApplicationDependencySDKPath.MakeAbsolute(_environment).FullPath);
+            }
+
+            // Cpp
+            if (settings.Cpp)
+            {
+                builder.Append("--cpp");
+            }
+
+            if (!string.IsNullOrEmpty(settings.CppCompilerFlags))
+            {
+                builder.Append("--cppcompilerflags");
+                builder.Append(settings.CppCompilerFlags);
+            }
+
+            // Build Profile
+            if (settings.BuildProfile)
+            {
+                builder.Append("--build-profile");
+            }
+
+            // Force IncrementalUnsafe
+            if (settings.ForceIncrementalUnsafe)
+            {
+                builder.Append("--force-incremental-unsafe");
+            }
+
             return builder;
         }
     }

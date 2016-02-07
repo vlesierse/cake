@@ -241,7 +241,6 @@ namespace Cake.Common.Tools.DotNetCore
         /// Run all projects.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <param name="path">The projects path.</param>
         /// <example>
         /// <code>
         ///     DotNetCoreRun();

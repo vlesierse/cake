@@ -1,5 +1,4 @@
 ﻿using Cake.Core.IO;
-using Cake.Core.Tooling;
 using System.Collections.Generic;
 
 namespace Cake.Common.Tools.DotNetCore.Restore
@@ -9,16 +8,34 @@ namespace Cake.Common.Tools.DotNetCore.Restore
     /// </summary>
     public class DotNetCoreRestoreSettings : DotNetCoreSettings
     {
+        /// <summary>
+        /// Gets or sets the specified NuGet package source to use during the restore.
+        /// </summary>
         public string Source { get; set; }
 
+        /// <summary>
+        /// Gets or sets the directory to install packages in.
+        /// </summary>
         public DirectoryPath Packages { get; set; }
 
+        /// <summary>
+        /// Gets or sets the list of runtime identifiers to restore for.
+        /// </summary>
         public ICollection<string> Runtimes { get; set; }
 
+        /// <summary>
+        /// Gets or sets the list of packages sources to use as a fallback.
+        /// </summary>
         public ICollection<string> FallbackSources { get; set; }
 
+        /// <summary>
+        /// Gets or sets the value indicating whether to disable restoring multiple projects in parallel.
+        /// </summary>
         public bool DisableParallel { get; set; }
 
+        /// <summary>
+        /// Gets or sets the verbosity of logging to use.
+        /// </summary>
         public DotNetCoreRestoreVerbosity? Verbosity { get; set; }
     }
 }
