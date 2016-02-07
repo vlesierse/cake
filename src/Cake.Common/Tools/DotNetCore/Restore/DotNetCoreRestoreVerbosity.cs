@@ -9,14 +9,17 @@
         /// Error level.
         /// </summary>
         Error,
+
         /// <summary>
         /// Warning level.
         /// </summary>
         Warning,
+
         /// <summary>
         /// Information level.
         /// </summary>
         Information,
+
         /// <summary>
         /// Verbose level.
         /// </summary>

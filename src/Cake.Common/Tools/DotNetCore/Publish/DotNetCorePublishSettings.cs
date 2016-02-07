@@ -28,7 +28,7 @@ namespace Cake.Common.Tools.DotNetCore.Publish
         public string Configuration { get; set; }
 
         /// <summary>
-        /// Gets or sets the value indicating whether to enable a temporary mechanism to include subdirectories
+        /// Gets or sets a value indicating whether to enable a temporary mechanism to include subdirectories
         /// from native assets of dependency packages in output.
         /// </summary>
         public bool NativeSubDirectory { get; set; }

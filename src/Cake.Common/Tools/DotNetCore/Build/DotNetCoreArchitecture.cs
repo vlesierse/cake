@@ -9,6 +9,7 @@
         /// X64 Architecture.
         /// </summary>
         x64,
+
         /// <summary>
         /// X86 Arhictecture.
         /// </summary>

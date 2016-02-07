@@ -1,6 +1,6 @@
-﻿using Cake.Core;
+﻿using System;
+using Cake.Core;
 using Cake.Core.IO;
-using System;
 
 namespace Cake.Common.Tools.DotNetCore.Pack
 {
