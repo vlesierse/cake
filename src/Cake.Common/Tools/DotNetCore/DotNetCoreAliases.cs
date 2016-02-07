@@ -1,12 +1,12 @@
 ﻿using System;
 using Cake.Common.Tools.DotNetCore.Build;
+using Cake.Common.Tools.DotNetCore.Command;
 using Cake.Common.Tools.DotNetCore.Pack;
 using Cake.Common.Tools.DotNetCore.Publish;
 using Cake.Common.Tools.DotNetCore.Restore;
 using Cake.Common.Tools.DotNetCore.Run;
 using Cake.Core;
 using Cake.Core.Annotations;
-using Cake.Core.IO;
 
 namespace Cake.Common.Tools.DotNetCore
 {
@@ -16,6 +16,100 @@ namespace Cake.Common.Tools.DotNetCore
     [CakeAliasCategory("DotNetCore")]
     public static class DotNetCoreAliases
     {
+        /// <summary>
+        /// Execute a command.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="command">The command.</param>
+        /// <example>
+        /// <code>
+        ///     DotNetCore("test");
+        /// </code>
+        /// </example>
+        [CakeMethodAlias]
+        [CakeAliasCategory("Command")]
+        [CakeNamespaceImport("Cake.Common.Tools.DotNetCore.Command")]
+        public static void DotNetCore(this ICakeContext context, string command)
+        {
+            context.DotNetCore(null, command, null, null);
+        }
+
+        /// <summary>
+        /// Execute a command with arguments.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="command">The command.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <example>
+        /// <code>
+        ///     DotNetCore("test", "--args");
+        /// </code>
+        /// </example>
+        [CakeMethodAlias]
+        [CakeAliasCategory("Command")]
+        [CakeNamespaceImport("Cake.Common.Tools.DotNetCore.Command")]
+        public static void DotNetCore(this ICakeContext context, string command, string arguments)
+        {
+            context.DotNetCore(null, command, arguments, null);
+        }
+
+        /// <summary>
+        /// Execute a command with arguments in the specific path.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="path">The projects path.</param>
+        /// <param name="command">The command.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <example>
+        /// <code>
+        ///     DotNetCore("./test/*", "test", "--arg");
+        /// </code>
+        /// </example>
+        [CakeMethodAlias]
+        [CakeAliasCategory("Command")]
+        [CakeNamespaceImport("Cake.Common.Tools.DotNetCore.Command")]
+        public static void DotNetCore(this ICakeContext context, string path, string command, string arguments)
+        {
+            context.DotNetCore(path, command, arguments, null);
+        }
+
+        /// <summary>
+        /// Execute a command with arguments in the specific path with settings.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="path">The projects path.</param>
+        /// <param name="command">The command.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        ///     var settings = new DotNetCoreSettings
+        ///     {
+        ///         Verbose = true
+        ///     };
+        ///
+        ///     DotNetCore("./src/*", "test", "--arg", settings);
+        /// </code>
+        /// </example>
+        [CakeMethodAlias]
+        [CakeAliasCategory("Command")]
+        [CakeNamespaceImport("Cake.Common.Tools.DotNetCore.Command")]
+        public static void DotNetCore(this ICakeContext context, string path, string command, string arguments, DotNetCoreSettings settings)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException("context");
+            }
+
+            if (settings == null)
+            {
+                settings = new DotNetCoreSettings();
+            }
+
+            var restorer = new DotNetCoreCommandExecutor(context.FileSystem, context.Environment, context.ProcessRunner, context.Globber);
+            restorer.Execute(path, command, arguments, settings);
+        }
+
         /// <summary>
         /// Restore all NuGet Packages.
         /// </summary>
@@ -37,22 +131,18 @@ namespace Cake.Common.Tools.DotNetCore
         /// Restore all NuGet Packages in the specified path.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <param name="filePath">The file to restore.</param>
+        /// <param name="path">The project path restore.</param>
         /// <example>
         /// <code>
-        ///     var projects = GetFiles("./src/**/project.json");
-        ///     foreach(var project in projects)
-        ///     {
-        ///         DotNetCoreRestore(project);
-        ///     }
+        ///     DotNetCoreRestore("./src/*");
         /// </code>
         /// </example>
         [CakeMethodAlias]
         [CakeAliasCategory("Restore")]
         [CakeNamespaceImport("Cake.Common.Tools.DotNetCore.Restore")]
-        public static void DotNetCoreRestore(this ICakeContext context, FilePath filePath)
+        public static void DotNetCoreRestore(this ICakeContext context, string path)
         {
-            context.DotNetCoreRestore(filePath, null);
+            context.DotNetCoreRestore(path, null);
         }
 
         /// <summary>
@@ -87,7 +177,7 @@ namespace Cake.Common.Tools.DotNetCore
         /// Restore all NuGet Packages in the specified path with settings.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <param name="filePath">The file to restore.</param>
+        /// <param name="path">The project path to restore.</param>
         /// <param name="settings">The settings.</param>
         /// <example>
         /// <code>
@@ -101,17 +191,13 @@ namespace Cake.Common.Tools.DotNetCore
         ///         Runtimes = new[] {"runtime1", "runtime2"}
         ///     };
         ///
-        ///     var projects = GetFiles("./src/**/project.json");
-        ///     foreach(var project in projects)
-        ///     {
-        ///         DotNetCoreRestore(project, settings);
-        ///     }
+        ///     DotNetCoreRestore("./src/*", settings);
         /// </code>
         /// </example>
         [CakeMethodAlias]
         [CakeAliasCategory("Restore")]
         [CakeNamespaceImport("Cake.Common.Tools.DotNetCore.Restore")]
-        public static void DotNetCoreRestore(this ICakeContext context, FilePath filePath, DotNetCoreRestoreSettings settings)
+        public static void DotNetCoreRestore(this ICakeContext context, string path, DotNetCoreRestoreSettings settings)
         {
             if (context == null)
             {
@@ -124,7 +210,7 @@ namespace Cake.Common.Tools.DotNetCore
             }
 
             var restorer = new DotNetCoreRestorer(context.FileSystem, context.Environment, context.ProcessRunner, context.Globber);
-            restorer.Restore(filePath, settings);
+            restorer.Restore(path, settings);
         }
 
         /// <summary>
@@ -255,32 +341,28 @@ namespace Cake.Common.Tools.DotNetCore
         }
 
         /// <summary>
-        /// Run all projects.
+        /// Run project.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <param name="path">The projects path.</param>
+        /// <param name="path">The project path.</param>
         /// <example>
         /// <code>
-        ///     var projects = GetFiles("./src/**/project.json");
-        ///     foreach(var project in projects)
-        ///     {
-        ///         DotNetCoreRun(project);
-        ///     }
+        ///     DotNetCoreRun("./src/Project");
         /// </code>
         /// </example>
         [CakeMethodAlias]
         [CakeAliasCategory("Run")]
         [CakeNamespaceImport("Cake.Common.Tools.DotNetCore.Run")]
-        public static void DotNetCoreRun(this ICakeContext context, FilePath path)
+        public static void DotNetCoreRun(this ICakeContext context, string path)
         {
             context.DotNetCoreRun(path, null);
         }
 
         /// <summary>
-        /// Run all projects.
+        /// Run project with settings.
         /// </summary>
         /// <param name="context">The context.</param>
-        /// <param name="path">The projects path.</param>
+        /// <param name="path">The project path.</param>
         /// <param name="settings">The settings.</param>
         /// <example>
         /// <code>
@@ -290,13 +372,13 @@ namespace Cake.Common.Tools.DotNetCore
         ///         Configuration = "Release"
         ///     };
         ///
-        ///     DotNetCoreRun("./src/*", settings);
+        ///     DotNetCoreRun("./src/Project", settings);
         /// </code>
         /// </example>
         [CakeMethodAlias]
         [CakeAliasCategory("Run")]
         [CakeNamespaceImport("Cake.Common.Tools.DotNetCore.Run")]
-        public static void DotNetCoreRun(this ICakeContext context, FilePath path, DotNetCoreRunSettings settings)
+        public static void DotNetCoreRun(this ICakeContext context, string path, DotNetCoreRunSettings settings)
         {
             if (context == null)
             {

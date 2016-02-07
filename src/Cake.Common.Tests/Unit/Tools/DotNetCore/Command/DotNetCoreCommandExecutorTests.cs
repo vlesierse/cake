@@ -1,11 +1,12 @@
-﻿using Cake.Common.Tests.Fixtures.Tools.DotNetCore.Build;
-using Cake.Common.Tools.DotNetCore.Build;
+﻿using Cake.Common.Tests.Fixtures.Tools.DotNetCore.Command;
+using Cake.Common.Tools.DotNetCore;
+using Cake.Common.Tools.DotNetCore.Command;
 using Cake.Testing;
 using Xunit;
 
 namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
 {
-    public sealed class DotNetCoreBuilderTests
+    public sealed class DotNetCoreCommandExecutorTests
     {
         public sealed class TheBuildMethod
         {
@@ -13,8 +14,10 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
             public void Should_Throw_If_Settings_Are_Null()
             {
                 // Given
-                var fixture = new DotNetCoreBuilderFixture();
+                var fixture = new DotNetCoreCommandExecutorFixture();
                 fixture.Path = "./src/*";
+                fixture.Command = "command";
+                fixture.Arguments = "--args";
                 fixture.Settings = null;
                 fixture.GivenDefaultToolDoNotExist();
 
@@ -26,26 +29,14 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
             }
 
             [Fact]
-            public void Should_Throw_If_Path_Is_Null()
-            {
-                // Given
-                var fixture = new DotNetCoreBuilderFixture();
-                fixture.Settings = new DotNetCoreBuildSettings();
-                fixture.GivenDefaultToolDoNotExist();
-
-                // When
-                var result = Record.Exception(() => fixture.Run());
-
-                // Then
-                Assert.IsArgumentNullException(result, "path");
-            }
-
-            [Fact]
             public void Should_Throw_If_DotNet_Executable_Was_Not_Found()
             {
                 // Given
-                var fixture = new DotNetCoreBuilderFixture();
+                var fixture = new DotNetCoreCommandExecutorFixture();
                 fixture.Path = "./src/*";
+                fixture.Command = "command";
+                fixture.Arguments = "--args";
+                fixture.Settings = new DotNetCoreSettings();
                 fixture.GivenDefaultToolDoNotExist();
 
                 // When
@@ -59,8 +50,11 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
             public void Should_Throw_If_Process_Was_Not_Started()
             {
                 // Given
-                var fixture = new DotNetCoreBuilderFixture();
+                var fixture = new DotNetCoreCommandExecutorFixture();
                 fixture.Path = "./src/*";
+                fixture.Command = "command";
+                fixture.Arguments = "--args";
+                fixture.Settings = new DotNetCoreSettings();
                 fixture.GivenProcessCannotStart();
 
                 // When
@@ -74,8 +68,11 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
             public void Should_Throw_If_Process_Has_A_Non_Zero_Exit_Code()
             {
                 // Given
-                var fixture = new DotNetCoreBuilderFixture();
+                var fixture = new DotNetCoreCommandExecutorFixture();
                 fixture.Path = "./src/*";
+                fixture.Command = "command";
+                fixture.Arguments = "--args";
+                fixture.Settings = new DotNetCoreSettings();
                 fixture.GivenProcessExitsWithCode(1);
 
                 // When
@@ -89,14 +86,15 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
             public void Should_Add_Mandatory_Arguments()
             {
                 // Given
-                var fixture = new DotNetCoreBuilderFixture();
-                fixture.Path = "./src/*";
+                var fixture = new DotNetCoreCommandExecutorFixture();
+                fixture.Command = "command";
+                fixture.Settings = new DotNetCoreSettings();
 
                 // When
                 var result = fixture.Run();
 
                 // Then
-                Assert.Equal("build \"./src/*\"", result.Args);
+                Assert.Equal("command", result.Args);
             }
         }
     }

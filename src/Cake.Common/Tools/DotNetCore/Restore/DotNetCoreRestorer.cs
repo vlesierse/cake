@@ -33,7 +33,7 @@ namespace Cake.Common.Tools.DotNetCore.Restore
         /// </summary>
         /// <param name="path">The target file path.</param>
         /// <param name="settings">The settings.</param>
-        public void Restore(FilePath path, DotNetCoreRestoreSettings settings)
+        public void Restore(string path, DotNetCoreRestoreSettings settings)
         {
             if (settings == null)
             {
@@ -43,7 +43,7 @@ namespace Cake.Common.Tools.DotNetCore.Restore
             Run(settings, GetArguments(path, settings));
         }
 
-        private ProcessArgumentBuilder GetArguments(FilePath path, DotNetCoreRestoreSettings settings)
+        private ProcessArgumentBuilder GetArguments(string path, DotNetCoreRestoreSettings settings)
         {
             var builder = CreateArgumentBuilder(settings);
 
@@ -52,7 +52,7 @@ namespace Cake.Common.Tools.DotNetCore.Restore
             // Specific path?
             if (path != null)
             {
-                builder.AppendQuoted(path.MakeAbsolute(_environment).FullPath);
+                builder.Append(path);
             }
 
             // Output directory

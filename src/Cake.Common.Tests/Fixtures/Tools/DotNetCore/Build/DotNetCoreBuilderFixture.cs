@@ -1,5 +1,4 @@
-﻿using Cake.Common.Tools;
-using Cake.Common.Tools.DotNetCore.Build;
+﻿using Cake.Common.Tools.DotNetCore.Build;
 
 namespace Cake.Common.Tests.Fixtures.Tools.DotNetCore.Build
 {
