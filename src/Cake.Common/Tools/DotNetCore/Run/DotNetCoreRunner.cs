@@ -9,8 +9,6 @@ namespace Cake.Common.Tools.DotNetCore.Run
     /// </summary>
     public class DotNetCoreRunner : DotNetCoreTool<DotNetCoreRunSettings>
     {
-        private readonly ICakeEnvironment _environment;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DotNetCoreRunner" /> class.
         /// </summary>
@@ -24,9 +22,7 @@ namespace Cake.Common.Tools.DotNetCore.Run
             IProcessRunner processRunner,
             IGlobber globber)
             : base(fileSystem, environment, processRunner, globber)
-        {
-            _environment = environment;
-        }
+        { }
 
         /// <summary>
         /// Runs the project using the specified path and settings.
