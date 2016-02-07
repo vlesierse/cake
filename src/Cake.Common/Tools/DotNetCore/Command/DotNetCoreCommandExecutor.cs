@@ -27,7 +27,8 @@ namespace Cake.Common.Tools.DotNetCore.Command
             IProcessRunner processRunner,
             IGlobber globber)
             : base(fileSystem, environment, processRunner, globber)
-        { }
+        {
+        }
 
         /// <summary>
         /// Execute a command using the specified path, arguments and settings.

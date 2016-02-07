@@ -22,7 +22,8 @@ namespace Cake.Common.Tools.DotNetCore.Run
             IProcessRunner processRunner,
             IGlobber globber)
             : base(fileSystem, environment, processRunner, globber)
-        { }
+        {
+        }
 
         /// <summary>
         /// Runs the project using the specified path and settings.
