@@ -9,8 +9,6 @@ namespace Cake.Common.Tools.DotNetCore.Command
     /// </summary>
     public class DotNetCoreCommandExecutor : DotNetCoreTool<DotNetCoreSettings>
     {
-        private readonly ICakeEnvironment _environment;
-
         internal void GivenDefaultToolDoNotExist()
         {
             throw new NotImplementedException();
@@ -29,9 +27,7 @@ namespace Cake.Common.Tools.DotNetCore.Command
             IProcessRunner processRunner,
             IGlobber globber)
             : base(fileSystem, environment, processRunner, globber)
-        {
-            _environment = environment;
-        }
+        { }
 
         /// <summary>
         /// Execute a command using the specified path, arguments and settings.
