@@ -29,7 +29,7 @@ namespace Cake.Common.Tools.DotNetCore.Publish
         }
 
         /// <summary>
-        /// Build the project using the specified path and settings.
+        /// Publish the project using the specified path and settings.
         /// </summary>
         /// <param name="path">The target file path.</param>
         /// <param name="settings">The settings.</param>
