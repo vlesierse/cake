@@ -1,7 +1,7 @@
-﻿using Cake.Core;
+﻿using System.Collections.Generic;
+using Cake.Core;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
-using System.Collections.Generic;
 
 namespace Cake.Common.Tools.DotNetCore
 {
@@ -47,10 +47,10 @@ namespace Cake.Common.Tools.DotNetCore
         }
 
         /// <summary>
-        /// 
+        /// Creates a <see cref="ProcessArgumentBuilder"/> and adds common commandline arguments.
         /// </summary>
-        /// <param name="settings"></param>
-        /// <returns></returns>
+        /// <param name="settings">The settings.</param>
+        /// <returns>Instance of <see cref="ProcessArgumentBuilder"/>.</returns>
         protected ProcessArgumentBuilder CreateArgumentBuilder(TSettings settings)
         {
             var builder = new ProcessArgumentBuilder();
