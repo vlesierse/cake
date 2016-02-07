@@ -1,4 +1,5 @@
-﻿using Cake.Common.Tools.DotNetCore.Build;
+﻿using System;
+using Cake.Common.Tools.DotNetCore.Build;
 using Cake.Common.Tools.DotNetCore.Pack;
 using Cake.Common.Tools.DotNetCore.Publish;
 using Cake.Common.Tools.DotNetCore.Restore;
@@ -6,7 +7,6 @@ using Cake.Common.Tools.DotNetCore.Run;
 using Cake.Core;
 using Cake.Core.Annotations;
 using Cake.Core.IO;
-using System;
 
 namespace Cake.Common.Tools.DotNetCore
 {

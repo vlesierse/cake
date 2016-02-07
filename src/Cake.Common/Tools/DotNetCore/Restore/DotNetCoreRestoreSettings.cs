@@ -1,5 +1,5 @@
-﻿using Cake.Core.IO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Cake.Core.IO;
 
 namespace Cake.Common.Tools.DotNetCore.Restore
 {
@@ -29,7 +29,7 @@ namespace Cake.Common.Tools.DotNetCore.Restore
         public ICollection<string> FallbackSources { get; set; }
 
         /// <summary>
-        /// Gets or sets the value indicating whether to disable restoring multiple projects in parallel.
+        /// Gets or sets a value indicating whether to disable restoring multiple projects in parallel.
         /// </summary>
         public bool DisableParallel { get; set; }
 
