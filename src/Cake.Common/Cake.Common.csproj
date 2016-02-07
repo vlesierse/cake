@@ -208,6 +208,7 @@
     <Compile Include="Tools\DotNetCore\DotNetCoreAliases.cs" />
     <Compile Include="Tools\DotNetCore\DotNetCoreSettings.cs" />
     <Compile Include="Tools\DotNetCore\DotNetCoreTool.cs" />
+    <Compile Include="Tools\DotNetCore\Command\DotNetCoreCommandExecutor.cs" />
     <Compile Include="Tools\DotNetCore\Pack\DotNetCorePacker.cs" />
     <Compile Include="Tools\DotNetCore\Pack\DotNetCorePackSettings.cs" />
     <Compile Include="Tools\DotNetCore\Publish\DotNetCorePublishSettings.cs" />

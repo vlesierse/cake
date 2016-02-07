@@ -1,19 +1,19 @@
-﻿using Cake.Common.Tests.Fixtures.Tools.DotNetCore.Build;
-using Cake.Common.Tools.DotNetCore.Build;
+﻿using Cake.Common.Tests.Fixtures.Tools.DotNetCore.Publish;
+using Cake.Common.Tools.DotNetCore.Publish;
 using Cake.Testing;
 using Xunit;
 
-namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
+namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Publish
 {
-    public sealed class DotNetCoreBuilderTests
+    public sealed class DotNetCorePublisherTests
     {
-        public sealed class TheBuildMethod
+        public sealed class ThePublishMethod
         {
             [Fact]
             public void Should_Throw_If_Settings_Are_Null()
             {
                 // Given
-                var fixture = new DotNetCoreBuilderFixture();
+                var fixture = new DotNetCorePublisherFixture();
                 fixture.Path = "./src/*";
                 fixture.Settings = null;
                 fixture.GivenDefaultToolDoNotExist();
@@ -29,8 +29,8 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
             public void Should_Throw_If_Path_Is_Null()
             {
                 // Given
-                var fixture = new DotNetCoreBuilderFixture();
-                fixture.Settings = new DotNetCoreBuildSettings();
+                var fixture = new DotNetCorePublisherFixture();
+                fixture.Settings = new DotNetCorePublishSettings();
                 fixture.GivenDefaultToolDoNotExist();
 
                 // When
@@ -44,7 +44,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
             public void Should_Throw_If_DotNet_Executable_Was_Not_Found()
             {
                 // Given
-                var fixture = new DotNetCoreBuilderFixture();
+                var fixture = new DotNetCorePublisherFixture();
                 fixture.Path = "./src/*";
                 fixture.GivenDefaultToolDoNotExist();
 
@@ -59,7 +59,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
             public void Should_Throw_If_Process_Was_Not_Started()
             {
                 // Given
-                var fixture = new DotNetCoreBuilderFixture();
+                var fixture = new DotNetCorePublisherFixture();
                 fixture.Path = "./src/*";
                 fixture.GivenProcessCannotStart();
 
@@ -74,7 +74,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
             public void Should_Throw_If_Process_Has_A_Non_Zero_Exit_Code()
             {
                 // Given
-                var fixture = new DotNetCoreBuilderFixture();
+                var fixture = new DotNetCorePublisherFixture();
                 fixture.Path = "./src/*";
                 fixture.GivenProcessExitsWithCode(1);
 
@@ -89,14 +89,14 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
             public void Should_Add_Mandatory_Arguments()
             {
                 // Given
-                var fixture = new DotNetCoreBuilderFixture();
+                var fixture = new DotNetCorePublisherFixture();
                 fixture.Path = "./src/*";
 
                 // When
                 var result = fixture.Run();
 
                 // Then
-                Assert.Equal("build \"./src/*\"", result.Args);
+                Assert.Equal("publish \"./src/*\"", result.Args);
             }
         }
     }
