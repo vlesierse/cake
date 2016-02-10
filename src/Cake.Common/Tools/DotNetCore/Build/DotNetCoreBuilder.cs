@@ -68,10 +68,10 @@ namespace Cake.Common.Tools.DotNetCore.Build
             }
 
             // Temporary output directory
-            if (settings.TemporaryOutputDirectory != null)
+            if (settings.BuildBasePath != null)
             {
-                builder.Append("--temp-output");
-                builder.AppendQuoted(settings.TemporaryOutputDirectory.MakeAbsolute(_environment).FullPath);
+                builder.Append("--build-base-path");
+                builder.AppendQuoted(settings.BuildBasePath.MakeAbsolute(_environment).FullPath);
             }
 
             // Runtime
@@ -81,11 +81,11 @@ namespace Cake.Common.Tools.DotNetCore.Build
                 builder.Append(settings.Runtime);
             }
 
-            // Framework
-            if (!string.IsNullOrEmpty(settings.Framework))
+            // Frameworks
+            if (settings.Frameworks != null && settings.Frameworks.Count > 0)
             {
                 builder.Append("--framework");
-                builder.Append(settings.Framework);
+                builder.AppendQuoted(string.Join(";", settings.Frameworks));
             }
 
             // Configuration
@@ -113,6 +113,13 @@ namespace Cake.Common.Tools.DotNetCore.Build
             {
                 builder.Append("--ilcpath");
                 builder.AppendQuoted(settings.ILCompilerPath.MakeAbsolute(_environment).FullPath);
+            }
+
+            // IL Compiler Arguments
+            if (settings.ILCompilerArguments != null)
+            {
+                builder.Append("--ilcargs");
+                builder.AppendQuoted(settings.ILCompilerArguments);
             }
 
             // IL Compiler SDK Path
@@ -147,10 +154,10 @@ namespace Cake.Common.Tools.DotNetCore.Build
                 builder.Append("--build-profile");
             }
 
-            // Force IncrementalUnsafe
-            if (settings.ForceIncrementalUnsafe)
+            // No Incremental
+            if (settings.NoIncremental)
             {
-                builder.Append("--force-incremental-unsafe");
+                builder.Append("--no-incremental");
             }
 
             return builder;

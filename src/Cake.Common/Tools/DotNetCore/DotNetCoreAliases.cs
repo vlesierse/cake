@@ -242,7 +242,7 @@ namespace Cake.Common.Tools.DotNetCore
         ///     var settings = new DotNetCoreBuildSettings
         ///     {
         ///         Frameworks = new[] { "net451", "dnxcore50" },
-        ///         Configurations = new[] { "Debug", "Release" },
+        ///         Configuration = "Debug",
         ///         OutputDirectory = "./artifacts/"
         ///     };
         ///
