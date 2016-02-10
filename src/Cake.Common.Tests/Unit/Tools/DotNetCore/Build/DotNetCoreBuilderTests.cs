@@ -98,6 +98,95 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
                 // Then
                 Assert.Equal("build \"./src/*\"", result.Args);
             }
+
+            [Fact]
+            public void Should_Add_Additional_Arguments()
+            {
+                // Given
+                var fixture = new DotNetCoreBuilderFixture();
+                fixture.Settings.Frameworks = new[] { "net451", "dnxcore50" };
+                fixture.Settings.Runtime = "runtime1";
+                fixture.Settings.Configuration = "Release";
+                fixture.Settings.Architecture = DotNetCoreArchitecture.x64;
+                fixture.Path = "./src/*";
+
+                // When
+                var result = fixture.Run();
+
+                // Then
+                Assert.Equal("build \"./src/*\" --runtime runtime1 --framework \"net451;dnxcore50\" --configuration Release --arch x64", result.Args);
+            }
+
+            [Fact]
+            public void Should_Add_Compiler_Arguments()
+            {
+                // Given
+                var fixture = new DotNetCoreBuilderFixture();
+                fixture.Settings.ILCompilerPath = "./compiler/csc.exe";
+                fixture.Settings.ILCompilerArguments = "--args";
+                fixture.Settings.ILCompilerSDKPath = "./compiler/";
+                fixture.Settings.ApplicationDependencySDKPath = "./sdk/";
+                fixture.Path = "./src/*";
+
+                // When
+                var result = fixture.Run();
+
+                // Then
+                Assert.Equal("build \"./src/*\"" +
+                             " --ilcpath \"/Working/compiler/csc.exe\"" +
+                             " --ilcargs \"--args\"" +
+                             " --ilcsdkpath \"/Working/compiler\"" +
+                             " --appdepsdkpath \"/Working/sdk\"", result.Args);
+            }
+
+            [Fact]
+            public void Should_Add_Native_Arguments()
+            {
+                // Given
+                var fixture = new DotNetCoreBuilderFixture();
+                fixture.Settings.Native = true;
+                fixture.Settings.Cpp = true;
+                fixture.Settings.CppCompilerFlags = "FLAG=1";
+                fixture.Path = "./src/*";
+
+                // When
+                var result = fixture.Run();
+
+                // Then
+                Assert.Equal("build \"./src/*\" --native --cpp --cppcompilerflags FLAG=1", result.Args);
+            }
+
+            [Fact]
+            public void Should_Add_OutputPath_Arguments()
+            {
+                // Given
+                var fixture = new DotNetCoreBuilderFixture();
+                fixture.Settings.OutputDirectory = "./artifacts/";
+                fixture.Path = "./src/*";
+
+                // When
+                var result = fixture.Run();
+
+                // Then
+                Assert.Equal("build \"./src/*\" --output \"/Working/artifacts\"", result.Args);
+            }
+
+            [Fact]
+            public void Should_Add_Build_Arguments()
+            {
+                // Given
+                var fixture = new DotNetCoreBuilderFixture();
+                fixture.Settings.BuildBasePath = "./temp/";
+                fixture.Settings.BuildProfile = true;
+                fixture.Settings.NoIncremental = true;
+                fixture.Path = "./src/*";
+
+                // When
+                var result = fixture.Run();
+
+                // Then
+                Assert.Equal("build \"./src/*\" --build-base-path \"/Working/temp\" --build-profile --no-incremental", result.Args);
+            }
         }
     }
 }

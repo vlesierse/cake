@@ -1,4 +1,5 @@
 ﻿using Cake.Core.IO;
+using System.Collections.Generic;
 
 namespace Cake.Common.Tools.DotNetCore.Build
 {
@@ -8,14 +9,14 @@ namespace Cake.Common.Tools.DotNetCore.Build
     public class DotNetCoreBuildSettings : DotNetCoreSettings
     {
         /// <summary>
+        /// Gets or sets the directory in which to place temporary outputs.
+        /// </summary>
+        public DirectoryPath BuildBasePath { get; set; }
+
+        /// <summary>
         /// Gets or sets the output directory.
         /// </summary>
         public DirectoryPath OutputDirectory { get; set; }
-
-        /// <summary>
-        /// Gets or sets the temporary output directory.
-        /// </summary>
-        public DirectoryPath TemporaryOutputDirectory { get; set; }
 
         /// <summary>
         /// Gets or sets the target runtime.
@@ -23,14 +24,14 @@ namespace Cake.Common.Tools.DotNetCore.Build
         public string Runtime { get; set; }
 
         /// <summary>
-        /// Gets or sets a specific framework to compile.
-        /// </summary>
-        public string Framework { get; set; }
-
-        /// <summary>
         /// Gets or sets the configuration under which to build.
         /// </summary>
         public string Configuration { get; set; }
+
+        /// <summary>
+        /// Gets or sets specific frameworks to compile.
+        /// </summary>
+        public ICollection<string> Frameworks { get; set; }
 
         /// <summary>
         /// Gets or sets the architecture for which to compile.
@@ -81,8 +82,9 @@ namespace Cake.Common.Tools.DotNetCore.Build
         public bool BuildProfile { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to mark the entire build as not safe for incrementality.
+        /// Gets or sets a value indicating whether to mark the build as unsafe for incrementality.
+        /// This turns off incremental compilation and forces a clean rebuild of the project dependency graph.
         /// </summary>
-        public bool ForceIncrementalUnsafe { get; set; }
+        public bool NoIncremental { get; set; }
     }
 }
