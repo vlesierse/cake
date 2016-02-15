@@ -8,6 +8,11 @@ namespace Cake.Common.Tools.DotNetCore.Publish
     public class DotNetCorePublishSettings : DotNetCoreSettings
     {
         /// <summary>
+        /// Gets or sets the directory in which to place temporary outputs.
+        /// </summary>
+        public DirectoryPath BuildBasePath { get; set; }
+
+        /// <summary>
         /// Gets or sets the output directory.
         /// </summary>
         public DirectoryPath OutputDirectory { get; set; }

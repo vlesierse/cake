@@ -16,7 +16,7 @@ namespace Cake.Common.Tools.DotNetCore.Restore
         /// <summary>
         /// Gets or sets the directory to install packages in.
         /// </summary>
-        public DirectoryPath Packages { get; set; }
+        public DirectoryPath PackagesDirectory { get; set; }
 
         /// <summary>
         /// Gets or sets the list of runtime identifiers to restore for.
@@ -27,6 +27,11 @@ namespace Cake.Common.Tools.DotNetCore.Restore
         /// Gets or sets the list of packages sources to use as a fallback.
         /// </summary>
         public ICollection<string> FallbackSources { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to display any output.
+        /// </summary>
+        public bool Quiet { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to disable restoring multiple projects in parallel.

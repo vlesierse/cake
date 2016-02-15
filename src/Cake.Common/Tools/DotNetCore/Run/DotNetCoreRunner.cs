@@ -26,21 +26,22 @@ namespace Cake.Common.Tools.DotNetCore.Run
         }
 
         /// <summary>
-        /// Runs the project using the specified path and settings.
+        /// Runs the project using the specified path with arguments and settings.
         /// </summary>
         /// <param name="path">The target file path.</param>
+        /// <param name="arguments">The arguments.</param>
         /// <param name="settings">The settings.</param>
-        public void Run(string path, DotNetCoreRunSettings settings)
+        public void Run(string path, string arguments, DotNetCoreRunSettings settings)
         {
             if (settings == null)
             {
                 throw new ArgumentNullException("settings");
             }
 
-            Run(settings, GetArguments(path, settings));
+            Run(settings, GetArguments(path, arguments, settings));
         }
 
-        private ProcessArgumentBuilder GetArguments(string path, DotNetCoreRunSettings settings)
+        private ProcessArgumentBuilder GetArguments(string path, string arguments, DotNetCoreRunSettings settings)
         {
             var builder = CreateArgumentBuilder(settings);
 
@@ -67,9 +68,9 @@ namespace Cake.Common.Tools.DotNetCore.Run
                 builder.Append(settings.Configuration);
             }
 
-            if (settings.PreserveTemporary)
+            if (!string.IsNullOrEmpty(arguments))
             {
-                builder.Append("--preserve-temporary");
+                builder.AppendQuoted(arguments);
             }
 
             return builder;

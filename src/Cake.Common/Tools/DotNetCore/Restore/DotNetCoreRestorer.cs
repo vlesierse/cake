@@ -56,10 +56,10 @@ namespace Cake.Common.Tools.DotNetCore.Restore
             }
 
             // Output directory
-            if (settings.Packages != null)
+            if (settings.PackagesDirectory != null)
             {
                 builder.Append("--packages");
-                builder.AppendQuoted(settings.Packages.MakeAbsolute(_environment).FullPath);
+                builder.AppendQuoted(settings.PackagesDirectory.MakeAbsolute(_environment).FullPath);
             }
 
             // Source
@@ -69,13 +69,6 @@ namespace Cake.Common.Tools.DotNetCore.Restore
                 builder.Append(settings.Source);
             }
 
-            // List of runtime identifiers
-            if (settings.Runtimes != null && settings.Runtimes.Count > 0)
-            {
-                builder.Append("--runtime");
-                builder.AppendQuoted(string.Join(";", settings.Runtimes));
-            }
-
             // List of fallback package sources
             if (settings.FallbackSources != null && settings.FallbackSources.Count > 0)
             {
@@ -83,7 +76,20 @@ namespace Cake.Common.Tools.DotNetCore.Restore
                 builder.AppendQuoted(string.Join(";", settings.FallbackSources));
             }
 
-            // Native
+            // List of runtime identifiers
+            if (settings.Runtimes != null && settings.Runtimes.Count > 0)
+            {
+                builder.Append("--runtime");
+                builder.AppendQuoted(string.Join(";", settings.Runtimes));
+            }
+
+            // Quiet
+            if (settings.Quiet)
+            {
+                builder.Append("--quiet");
+            }
+
+            // Disable parallel
             if (settings.DisableParallel)
             {
                 builder.Append("--disable-parallel");
