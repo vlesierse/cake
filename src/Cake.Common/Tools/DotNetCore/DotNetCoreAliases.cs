@@ -337,7 +337,7 @@ namespace Cake.Common.Tools.DotNetCore
         [CakeNamespaceImport("Cake.Common.Tools.DotNetCore.Run")]
         public static void DotNetCoreRun(this ICakeContext context)
         {
-            context.DotNetCoreRun(null, null);
+            context.DotNetCoreRun(null, null, null);
         }
 
         /// <summary>
@@ -355,7 +355,26 @@ namespace Cake.Common.Tools.DotNetCore
         [CakeNamespaceImport("Cake.Common.Tools.DotNetCore.Run")]
         public static void DotNetCoreRun(this ICakeContext context, string path)
         {
-            context.DotNetCoreRun(path, null);
+            context.DotNetCoreRun(path, null, null);
+        }
+
+        /// <summary>
+        /// Run project with path and arguments.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="path">The project path.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <example>
+        /// <code>
+        ///     DotNetCoreRun("./src/Project", "--args");
+        /// </code>
+        /// </example>
+        [CakeMethodAlias]
+        [CakeAliasCategory("Run")]
+        [CakeNamespaceImport("Cake.Common.Tools.DotNetCore.Run")]
+        public static void DotNetCoreRun(this ICakeContext context, string path, string arguments)
+        {
+            context.DotNetCoreRun(path, arguments, null);
         }
 
         /// <summary>
@@ -363,6 +382,7 @@ namespace Cake.Common.Tools.DotNetCore
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="path">The project path.</param>
+        /// <param name="arguments">The arguments.</param>
         /// <param name="settings">The settings.</param>
         /// <example>
         /// <code>
@@ -372,13 +392,13 @@ namespace Cake.Common.Tools.DotNetCore
         ///         Configuration = "Release"
         ///     };
         ///
-        ///     DotNetCoreRun("./src/Project", settings);
+        ///     DotNetCoreRun("./src/Project", "--args", settings);
         /// </code>
         /// </example>
         [CakeMethodAlias]
         [CakeAliasCategory("Run")]
         [CakeNamespaceImport("Cake.Common.Tools.DotNetCore.Run")]
-        public static void DotNetCoreRun(this ICakeContext context, string path, DotNetCoreRunSettings settings)
+        public static void DotNetCoreRun(this ICakeContext context, string path, string arguments, DotNetCoreRunSettings settings)
         {
             if (context == null)
             {
@@ -391,7 +411,7 @@ namespace Cake.Common.Tools.DotNetCore
             }
 
             var restorer = new DotNetCoreRunner(context.FileSystem, context.Environment, context.ProcessRunner, context.Globber);
-            restorer.Run(path, settings);
+            restorer.Run(path, arguments, settings);
         }
 
         /// <summary>

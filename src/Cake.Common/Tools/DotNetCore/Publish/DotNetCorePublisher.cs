@@ -35,11 +35,6 @@ namespace Cake.Common.Tools.DotNetCore.Publish
         /// <param name="settings">The settings.</param>
         public void Publish(string path, DotNetCorePublishSettings settings)
         {
-            if (path == null)
-            {
-                throw new ArgumentNullException("path");
-            }
-
             if (settings == null)
             {
                 throw new ArgumentNullException("settings");
@@ -65,6 +60,13 @@ namespace Cake.Common.Tools.DotNetCore.Publish
             {
                 builder.Append("--output");
                 builder.AppendQuoted(settings.OutputDirectory.MakeAbsolute(_environment).FullPath);
+            }
+
+            // Build base path
+            if (settings.BuildBasePath != null)
+            {
+                builder.Append("--build-base-path");
+                builder.AppendQuoted(settings.BuildBasePath.MakeAbsolute(_environment).FullPath);
             }
 
             // Runtime

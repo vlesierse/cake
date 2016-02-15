@@ -14,11 +14,5 @@
         /// Gets or sets the configuration under which to build.
         /// </summary>
         public string Configuration { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether to keep the output's temporary directory
-        /// around.
-        /// </summary>
-        public bool PreserveTemporary { get; set; }
     }
 }

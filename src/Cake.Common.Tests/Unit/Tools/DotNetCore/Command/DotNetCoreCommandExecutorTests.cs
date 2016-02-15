@@ -96,6 +96,38 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
                 // Then
                 Assert.Equal("command", result.Args);
             }
+
+            [Fact]
+            public void Should_Add_Path_Arguments()
+            {
+                // Given
+                var fixture = new DotNetCoreCommandExecutorFixture();
+                fixture.Path = "./tools/tool/";
+                fixture.Command = "command";
+                fixture.Arguments = "--arg";
+                fixture.Settings = new DotNetCoreSettings();
+
+                // When
+                var result = fixture.Run();
+
+                // Then
+                Assert.Equal("command \"./tools/tool/\" --arg", result.Args);
+            }
+
+            [Fact]
+            public void Should_Add_Verbose()
+            {
+                // Given
+                var fixture = new DotNetCoreCommandExecutorFixture();
+                fixture.Command = "command";
+                fixture.Settings.Verbose = true;
+
+                // When
+                var result = fixture.Run();
+
+                // Then
+                Assert.Equal("--verbose command", result.Args);
+            }
         }
     }
 }

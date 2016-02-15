@@ -13,8 +13,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Pack
             public void Should_Throw_If_Settings_Are_Null()
             {
                 // Given
-                var fixture = new DotNetCorePublishFixture();
-                fixture.Path = "./src/*";
+                var fixture = new DotNetCorePackFixture();
                 fixture.Settings = null;
                 fixture.GivenDefaultToolDoNotExist();
 
@@ -26,26 +25,10 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Pack
             }
 
             [Fact]
-            public void Should_Throw_If_Path_Is_Null()
-            {
-                // Given
-                var fixture = new DotNetCorePublishFixture();
-                fixture.Settings = new DotNetCorePackSettings();
-                fixture.GivenDefaultToolDoNotExist();
-
-                // When
-                var result = Record.Exception(() => fixture.Run());
-
-                // Then
-                Assert.IsArgumentNullException(result, "path");
-            }
-
-            [Fact]
             public void Should_Throw_If_DotNet_Executable_Was_Not_Found()
             {
                 // Given
-                var fixture = new DotNetCorePublishFixture();
-                fixture.Path = "./src/*";
+                var fixture = new DotNetCorePackFixture();
                 fixture.GivenDefaultToolDoNotExist();
 
                 // When
@@ -59,8 +42,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Pack
             public void Should_Throw_If_Process_Was_Not_Started()
             {
                 // Given
-                var fixture = new DotNetCorePublishFixture();
-                fixture.Path = "./src/*";
+                var fixture = new DotNetCorePackFixture();
                 fixture.GivenProcessCannotStart();
 
                 // When
@@ -74,8 +56,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Pack
             public void Should_Throw_If_Process_Has_A_Non_Zero_Exit_Code()
             {
                 // Given
-                var fixture = new DotNetCorePublishFixture();
-                fixture.Path = "./src/*";
+                var fixture = new DotNetCorePackFixture();
                 fixture.GivenProcessExitsWithCode(1);
 
                 // When
@@ -89,7 +70,20 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Pack
             public void Should_Add_Mandatory_Arguments()
             {
                 // Given
-                var fixture = new DotNetCorePublishFixture();
+                var fixture = new DotNetCorePackFixture();
+
+                // When
+                var result = fixture.Run();
+
+                // Then
+                Assert.Equal("pack", result.Args);
+            }
+
+            [Fact]
+            public void Should_Add_Path()
+            {
+                // Given
+                var fixture = new DotNetCorePackFixture();
                 fixture.Path = "./src/*";
 
                 // When
@@ -97,6 +91,24 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Pack
 
                 // Then
                 Assert.Equal("pack \"./src/*\"", result.Args);
+            }
+
+            [Fact]
+            public void Should_Add_Settings()
+            {
+                // Given
+                var fixture = new DotNetCorePackFixture();
+                fixture.Settings.BuildBasePath = "./temp/";
+                fixture.Settings.NoBuild = true;
+                fixture.Settings.Configuration = "Release";
+                fixture.Settings.OutputDirectory = "./artifacts/";
+                fixture.Settings.VersionSuffix = "rc1";
+
+                // When
+                var result = fixture.Run();
+
+                // Then
+                Assert.Equal("pack --output \"/Working/artifacts\" --build-base-path \"/Working/temp\" --no-build --configuration Release --version-suffix rc1", result.Args);
             }
         }
     }

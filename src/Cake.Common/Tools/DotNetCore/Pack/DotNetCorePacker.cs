@@ -35,11 +35,6 @@ namespace Cake.Common.Tools.DotNetCore.Pack
         /// <param name="settings">The settings.</param>
         public void Pack(string path, DotNetCorePackSettings settings)
         {
-            if (path == null)
-            {
-                throw new ArgumentNullException("path");
-            }
-
             if (settings == null)
             {
                 throw new ArgumentNullException("settings");
@@ -61,24 +56,23 @@ namespace Cake.Common.Tools.DotNetCore.Pack
             }
 
             // Output directory
-            if (settings.BasePath != null)
-            {
-                builder.Append("--basepath");
-                builder.AppendQuoted(settings.BasePath.MakeAbsolute(_environment).FullPath);
-            }
-
-            // Output directory
             if (settings.OutputDirectory != null)
             {
                 builder.Append("--output");
                 builder.AppendQuoted(settings.OutputDirectory.MakeAbsolute(_environment).FullPath);
             }
 
-            // Temporary output directory
-            if (settings.TemporaryOutputDirectory != null)
+            // Build base path
+            if (settings.BuildBasePath != null)
             {
-                builder.Append("--temp-output");
-                builder.AppendQuoted(settings.TemporaryOutputDirectory.MakeAbsolute(_environment).FullPath);
+                builder.Append("--build-base-path");
+                builder.AppendQuoted(settings.BuildBasePath.MakeAbsolute(_environment).FullPath);
+            }
+
+            // No build
+            if (settings.NoBuild)
+            {
+                builder.Append("--no-build");
             }
 
             // Configuration

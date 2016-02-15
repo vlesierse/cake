@@ -81,6 +81,34 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Run
                 // Then
                 Assert.Equal("run", result.Args);
             }
+
+            [Fact]
+            public void Should_Add_Path_Arguments()
+            {
+                // Given
+                var fixture = new DotNetCoreRunnerFixture();
+                fixture.Path = "./tools/tool/";
+                fixture.Arguments = "--args";
+                // When
+                var result = fixture.Run();
+
+                // Then
+                Assert.Equal("run --project \"./tools/tool/\" \"--args\"", result.Args);
+            }
+
+            [Fact]
+            public void Should_Add_Additional_Settings()
+            {
+                // Given
+                var fixture = new DotNetCoreRunnerFixture();
+                fixture.Settings.Framework = "dnxcore50";
+                fixture.Settings.Configuration = "Release";
+                // When
+                var result = fixture.Run();
+
+                // Then
+                Assert.Equal("run --framework dnxcore50 --configuration Release", result.Args);
+            }
         }
     }
 }

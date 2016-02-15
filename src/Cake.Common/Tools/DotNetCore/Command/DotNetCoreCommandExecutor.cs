@@ -60,7 +60,7 @@ namespace Cake.Common.Tools.DotNetCore.Command
 
             if (!string.IsNullOrEmpty(path))
             {
-                builder.Append(path);
+                builder.AppendQuoted(path);
             }
 
             if (!string.IsNullOrEmpty(arguments))

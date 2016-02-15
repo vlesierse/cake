@@ -6,10 +6,12 @@ namespace Cake.Common.Tests.Fixtures.Tools.DotNetCore.Run
     {
         public string Path { get; set; }
 
+        public string Arguments { get; set; }
+
         protected override void RunTool()
         {
             var tool = new DotNetCoreRunner(FileSystem, Environment, ProcessRunner, Globber);
-            tool.Run(Path, Settings);
+            tool.Run(Path, Arguments, Settings);
         }
     }
 }

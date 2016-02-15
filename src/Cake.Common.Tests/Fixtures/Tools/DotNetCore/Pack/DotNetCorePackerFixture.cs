@@ -2,7 +2,7 @@
 
 namespace Cake.Common.Tests.Fixtures.Tools.DotNetCore.Pack
 {
-    internal sealed class DotNetCorePublishFixture : DotNetCoreFixture<DotNetCorePackSettings>
+    internal sealed class DotNetCorePackFixture : DotNetCoreFixture<DotNetCorePackSettings>
     {
         public string Path { get; set; }
 

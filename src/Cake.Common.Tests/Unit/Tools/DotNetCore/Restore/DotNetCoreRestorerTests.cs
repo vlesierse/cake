@@ -14,7 +14,6 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Restore
             {
                 // Given
                 var fixture = new DotNetCoreRestorerFixture();
-                fixture.Path = "./src/*";
                 fixture.Settings = null;
                 fixture.GivenDefaultToolDoNotExist();
 
@@ -30,7 +29,6 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Restore
             {
                 // Given
                 var fixture = new DotNetCoreRestorerFixture();
-                fixture.Path = "./src/*";
                 fixture.GivenDefaultToolDoNotExist();
 
                 // When
@@ -60,7 +58,6 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Restore
             {
                 // Given
                 var fixture = new DotNetCoreRestorerFixture();
-                fixture.Path = "./src/*";
                 fixture.GivenProcessExitsWithCode(1);
 
                 // When
@@ -81,6 +78,46 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Restore
 
                 // Then
                 Assert.Equal("restore", result.Args);
+            }
+
+            [Fact]
+            public void Should_Add_Path()
+            {
+                // Given
+                var fixture = new DotNetCoreRestorerFixture();
+                fixture.Path = "./src/*";
+
+                // When
+                var result = fixture.Run();
+
+                // Then
+                Assert.Equal("restore ./src/*", result.Args);
+            }
+
+            [Fact]
+            public void Should_Add_Settings()
+            {
+                // Given
+                var fixture = new DotNetCoreRestorerFixture();
+                fixture.Settings.Source = "https://www.example.com/source";
+                fixture.Settings.FallbackSources = new[] { "https://www.example.com/fallback1", "https://www.example.com/fallback2" };
+                fixture.Settings.Quiet = true;
+                fixture.Settings.DisableParallel = true;
+                fixture.Settings.Runtimes = new[] { "runtime1", "runtime2" };
+                fixture.Settings.PackagesDirectory = "./packages/";
+                fixture.Settings.Verbosity = DotNetCoreRestoreVerbosity.Information;
+
+                // When
+                var result = fixture.Run();
+
+                // Then
+                Assert.Equal("restore" +
+                             " --packages \"/Working/packages\"" +
+                             " --source https://www.example.com/source" +
+                             " --fallbacksource \"https://www.example.com/fallback1;https://www.example.com/fallback2\"" +
+                             " --runtime \"runtime1;runtime2\"" +
+                             " --quiet --disable-parallel" +
+                             " --verbosity Information", result.Args);
             }
         }
     }
