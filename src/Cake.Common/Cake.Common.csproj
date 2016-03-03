@@ -181,6 +181,8 @@
     <Compile Include="Tools\DotNetCore\Restore\DotNetCoreRestoreVerbosity.cs" />
     <Compile Include="Tools\DotNetCore\Run\DotNetCoreRunner.cs" />
     <Compile Include="Tools\DotNetCore\Run\DotNetCoreRunSettings.cs" />
+    <Compile Include="Tools\DotNetCore\Test\DotNetCoreTester.cs" />
+    <Compile Include="Tools\DotNetCore\Test\DotNetCoreTestSettings.cs" />
     <Compile Include="Tools\DupFinder\DupFinderAliases.cs" />
     <Compile Include="Tools\DupFinder\DupFinderRunner.cs" />
     <Compile Include="Tools\DupFinder\DupFinderSettings.cs" />
