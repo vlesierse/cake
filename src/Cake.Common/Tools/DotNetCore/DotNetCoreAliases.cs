@@ -5,6 +5,7 @@ using Cake.Common.Tools.DotNetCore.Pack;
 using Cake.Common.Tools.DotNetCore.Publish;
 using Cake.Common.Tools.DotNetCore.Restore;
 using Cake.Common.Tools.DotNetCore.Run;
+using Cake.Common.Tools.DotNetCore.Test;
 using Cake.Core;
 using Cake.Core.Annotations;
 
@@ -467,6 +468,76 @@ namespace Cake.Common.Tools.DotNetCore
 
             var restorer = new DotNetCorePublisher(context.FileSystem, context.Environment, context.ProcessRunner, context.Globber);
             restorer.Publish(path, settings);
+        }
+
+        /// <summary>
+        /// Test project.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <example>
+        /// <code>
+        ///     DotNetCoreTest();
+        /// </code>
+        /// </example>
+        [CakeMethodAlias]
+        [CakeAliasCategory("Test")]
+        [CakeNamespaceImport("Cake.Common.Tools.DotNetCore.Test")]
+        public static void DotNetCoreTest(this ICakeContext context)
+        {
+            context.DotNetCoreRun(null, null);
+        }
+
+        /// <summary>
+        /// Test project with path.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="path">The project path.</param>
+        /// <example>
+        /// <code>
+        ///     DotNetCoreTest("./src/Project");
+        /// </code>
+        /// </example>
+        [CakeMethodAlias]
+        [CakeAliasCategory("Test")]
+        [CakeNamespaceImport("Cake.Common.Tools.DotNetCore.Test")]
+        public static void DotNetCoreTest(this ICakeContext context, string path)
+        {
+            context.DotNetCoreTest(path, null);
+        }
+
+        /// <summary>
+        /// Test project with settings.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="path">The project path.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        ///     var settings = new DotNetCoreRunSettings
+        ///     {
+        ///         Configuration = "Release"
+        ///     };
+        ///
+        ///     DotNetCoreRun("./test/Project.Tests", settings);
+        /// </code>
+        /// </example>
+        [CakeMethodAlias]
+        [CakeAliasCategory("Test")]
+        [CakeNamespaceImport("Cake.Common.Tools.DotNetCore.Test")]
+        public static void DotNetCoreTest(this ICakeContext context, string path, DotNetCoreTestSettings settings)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException("context");
+            }
+
+            if (settings == null)
+            {
+                settings = new DotNetCoreTestSettings();
+            }
+
+            var restorer = new DotNetCoreTester(context.FileSystem, context.Environment, context.ProcessRunner, context.Globber);
+            restorer.Test(path, settings);
         }
     }
 }
