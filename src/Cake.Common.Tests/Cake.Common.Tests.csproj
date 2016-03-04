@@ -100,6 +100,9 @@
     <Compile Include="Fixtures\Tools\DotNetCore\Publish\DotNetCorePublisherFixture.cs" />
     <Compile Include="Fixtures\Tools\DotNetCore\Restore\DotNetCoreRestorerFixture.cs" />
     <Compile Include="Fixtures\Tools\DotNetCore\Run\DotNetCoreRunnerFixture.cs" />
+    <Compile Include="Fixtures\Tools\DotCover\Analyse\DotCoverAnalyserFixture.cs" />
+    <Compile Include="Fixtures\Tools\DotCover\Cover\DotCoverCovererFixture.cs" />
+    <Compile Include="Fixtures\Tools\DotCover\DotCoverFixture.cs" />
     <Compile Include="Fixtures\Tools\DupFinder\DupFinderRunnerConfigFixture.cs" />
     <Compile Include="Fixtures\Tools\DupFinder\DupFinderRunnerFixture.cs" />
     <Compile Include="Fixtures\Tools\FixieRunnerFixture.cs" />
@@ -114,6 +117,7 @@
     <Compile Include="Fixtures\Tools\GitReleaseNotesRunnerFixture.cs" />
     <Compile Include="Fixtures\Tools\ILMergeRunnerFixture.cs" />
     <Compile Include="Fixtures\Diagnostics\LogActionFixture.cs" />
+    <Compile Include="Fixtures\Tools\ILRepackRunnerFixture.cs" />
     <Compile Include="Fixtures\Tools\InspectCode\InspectCodeFixture.cs" />
     <Compile Include="Fixtures\Tools\InspectCode\InspectCodeRunFixture.cs" />
     <Compile Include="Fixtures\Tools\InspectCode\InspectCodeRunFromConfigFixture.cs" />
@@ -127,6 +131,7 @@
     <Compile Include="Fixtures\Tools\NuGet\Packer\NuGetPackerWithNuSpecFixture.cs" />
     <Compile Include="Fixtures\Tools\NuGet\Packer\NuGetPackerWithoutNuSpecFixture.cs" />
     <Compile Include="Fixtures\Tools\NuGet\Packer\NuGetPackerFixture.cs" />
+    <Compile Include="Fixtures\Tools\NuGet\Packer\NuGetPackerWithProjectFileFixture.cs" />
     <Compile Include="Fixtures\Tools\NuGet\Pusher\NuGetPusherFixture.cs" />
     <Compile Include="Fixtures\Tools\NuGet\Restorer\NuGetRestorerFixture.cs" />
     <Compile Include="Fixtures\Tools\NuGet\SetApiKey\NuGetSetApiKeyFixture.cs" />
@@ -210,12 +215,6 @@
     <Compile Include="Unit\Tools\DNU\Build\DNUBuilderTests.cs" />
     <Compile Include="Unit\Tools\DNU\Pack\DNUPackerTests.cs" />
     <Compile Include="Unit\Tools\DNU\Restore\DNURestorerTests.cs" />
-    <Compile Include="Unit\Tools\DotNetCore\Build\DotNetCoreBuilderTests.cs" />
-    <Compile Include="Unit\Tools\DotNetCore\Command\DotNetCoreCommandExecutorTests.cs" />
-    <Compile Include="Unit\Tools\DotNetCore\Pack\DotNetCorePackerTests.cs" />
-    <Compile Include="Unit\Tools\DotNetCore\Publish\DotNetCorePublisherTests.cs" />
-    <Compile Include="Unit\Tools\DotNetCore\Restore\DotNetCoreRestorerTests.cs" />
-    <Compile Include="Unit\Tools\DotNetCore\Run\DotNetCoreRunnerTests.cs" />
     <Compile Include="Unit\Tools\DupFinder\DupFinderRunnerTests.cs" />
     <Compile Include="Unit\Tools\Fixie\FixieRunnerTests.cs" />
     <Compile Include="Unit\Tools\GitLink\GitlinkRunnerTests.cs" />
@@ -231,6 +230,8 @@
     <Compile Include="Unit\IO\ZipperTests.cs" />
     <Compile Include="Unit\IO\DirectoryAliasesTests.cs" />
     <Compile Include="Unit\IO\FileAliasesTests.cs" />
+    <Compile Include="Unit\Tools\ILRepack\ILRepackRunnerTests.cs" />
+    <Compile Include="Unit\Tools\ILRepack\ILRepackSettingsTests.cs" />
     <Compile Include="Unit\Tools\InspectCode\InspectCodeRunnerTests.cs" />
     <Compile Include="Unit\Tools\DotNetBuildSettingsExtensionsTests.cs" />
     <Compile Include="Unit\Tools\DotNetBuildSettingsTests.cs" />
