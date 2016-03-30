@@ -14,14 +14,19 @@ namespace Cake.Common.Tools.DotNetCore.Restore
         public string Source { get; set; }
 
         /// <summary>
+        /// Gets or sets the NuGet configuration file to use.
+        /// </summary>
+        public FilePath ConfigFile { get; set; }
+
+        /// <summary>
         /// Gets or sets the directory to install packages in.
         /// </summary>
         public DirectoryPath PackagesDirectory { get; set; }
 
         /// <summary>
-        /// Gets or sets the list of runtime identifiers to restore for.
+        /// Gets or sets a temporary option to allow NuGet to infer RIDs for legacy repositories.
         /// </summary>
-        public ICollection<string> Runtimes { get; set; }
+        public ICollection<string> InferRuntimes { get; set; }
 
         /// <summary>
         /// Gets or sets the list of packages sources to use as a fallback.
@@ -34,9 +39,19 @@ namespace Cake.Common.Tools.DotNetCore.Restore
         public bool Quiet { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to do not cache packages and http requests.
+        /// </summary>
+        public bool NoCache { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether to disable restoring multiple projects in parallel.
         /// </summary>
         public bool DisableParallel { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to only warning failed sources if there are packages meeting version requirement.
+        /// </summary>
+        public bool IgnoreFailedSources { get; set; }
 
         /// <summary>
         /// Gets or sets the verbosity of logging to use.

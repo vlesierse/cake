@@ -4,12 +4,12 @@ namespace Cake.Common.Tests.Fixtures.Tools.DotNetCore.Pack
 {
     internal sealed class DotNetCorePackFixture : DotNetCoreFixture<DotNetCorePackSettings>
     {
-        public string Path { get; set; }
+        public string Project { get; set; }
 
         protected override void RunTool()
         {
             var tool = new DotNetCorePacker(FileSystem, Environment, ProcessRunner, Globber);
-            tool.Pack(Path, Settings);
+            tool.Pack(Project, Settings);
         }
     }
 }

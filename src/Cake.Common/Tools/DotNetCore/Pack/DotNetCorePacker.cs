@@ -31,28 +31,28 @@ namespace Cake.Common.Tools.DotNetCore.Pack
         /// <summary>
         /// Pack the project using the specified path and settings.
         /// </summary>
-        /// <param name="path">The target file path.</param>
+        /// <param name="project">The target file path.</param>
         /// <param name="settings">The settings.</param>
-        public void Pack(string path, DotNetCorePackSettings settings)
+        public void Pack(string project, DotNetCorePackSettings settings)
         {
             if (settings == null)
             {
                 throw new ArgumentNullException("settings");
             }
 
-            Run(settings, GetArguments(path, settings));
+            Run(settings, GetArguments(project, settings));
         }
 
-        private ProcessArgumentBuilder GetArguments(string path, DotNetCorePackSettings settings)
+        private ProcessArgumentBuilder GetArguments(string project, DotNetCorePackSettings settings)
         {
             var builder = CreateArgumentBuilder(settings);
 
             builder.Append("pack");
 
             // Specific path?
-            if (path != null)
+            if (project != null)
             {
-                builder.AppendQuoted(path);
+                builder.AppendQuoted(project);
             }
 
             // Output directory

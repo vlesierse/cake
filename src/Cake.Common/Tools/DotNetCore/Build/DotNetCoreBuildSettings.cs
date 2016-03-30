@@ -42,6 +42,11 @@ namespace Cake.Common.Tools.DotNetCore.Build
         public DotNetCoreArchitecture? Architecture { get; set; }
 
         /// <summary>
+        /// Gets or sets the value that defines what `*` should be replaced with in version field in project.json.
+        /// </summary>
+        public string VersionSuffix { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether to compile source to native machine code.
         /// </summary>
         public bool Native { get; set; }
@@ -86,5 +91,10 @@ namespace Cake.Common.Tools.DotNetCore.Build
         /// This turns off incremental compilation and forces a clean rebuild of the project dependency graph.
         /// </summary>
         public bool NoIncremental { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to ignore project to project references and only build the root project.
+        /// </summary>
+        public bool NoDependencies { get; set; }
     }
 }

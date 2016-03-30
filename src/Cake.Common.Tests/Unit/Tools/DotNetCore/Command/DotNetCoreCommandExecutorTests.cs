@@ -1,6 +1,5 @@
 ﻿using Cake.Common.Tests.Fixtures.Tools.DotNetCore.Command;
 using Cake.Common.Tools.DotNetCore;
-using Cake.Common.Tools.DotNetCore.Command;
 using Cake.Testing;
 using Xunit;
 
@@ -8,7 +7,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
 {
     public sealed class DotNetCoreCommandExecutorTests
     {
-        public sealed class TheBuildMethod
+        public sealed class TheCommandMethod
         {
             [Fact]
             public void Should_Throw_If_Settings_Are_Null()

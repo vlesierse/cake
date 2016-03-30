@@ -33,6 +33,11 @@ namespace Cake.Common.Tools.DotNetCore.Publish
         public string Configuration { get; set; }
 
         /// <summary>
+        /// Gets or sets the value that defines what `*` should be replaced with in version field in project.json.
+        /// </summary>
+        public string VersionSuffix { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether to enable a temporary mechanism to include subdirectories
         /// from native assets of dependency packages in output.
         /// </summary>

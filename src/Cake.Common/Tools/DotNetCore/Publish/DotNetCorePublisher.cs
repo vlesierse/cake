@@ -90,6 +90,13 @@ namespace Cake.Common.Tools.DotNetCore.Publish
                 builder.Append(settings.Configuration);
             }
 
+            // Version suffix
+            if (!string.IsNullOrEmpty(settings.VersionSuffix))
+            {
+                builder.Append("--version-suffix");
+                builder.Append(settings.VersionSuffix);
+            }
+
             if (settings.NativeSubDirectory)
             {
                 builder.Append("--native-subdirectory");

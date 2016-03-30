@@ -4,12 +4,12 @@ namespace Cake.Common.Tests.Fixtures.Tools.DotNetCore.Build
 {
     internal sealed class DotNetCoreBuilderFixture : DotNetCoreFixture<DotNetCoreBuildSettings>
     {
-        public string Path { get; set; }
+        public string Project { get; set; }
 
         protected override void RunTool()
         {
             var tool = new DotNetCoreBuilder(FileSystem, Environment, ProcessRunner, Globber);
-            tool.Build(Path, Settings);
+            tool.Build(Project, Settings);
         }
     }
 }

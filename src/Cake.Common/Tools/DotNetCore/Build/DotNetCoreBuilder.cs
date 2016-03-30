@@ -31,11 +31,11 @@ namespace Cake.Common.Tools.DotNetCore.Build
         /// <summary>
         /// Build the project using the specified path and settings.
         /// </summary>
-        /// <param name="path">The target file path.</param>
+        /// <param name="project">The target project path.</param>
         /// <param name="settings">The settings.</param>
-        public void Build(string path, DotNetCoreBuildSettings settings)
+        public void Build(string project, DotNetCoreBuildSettings settings)
         {
-            if (path == null)
+            if (project == null)
             {
                 throw new ArgumentNullException("path");
             }
@@ -45,19 +45,19 @@ namespace Cake.Common.Tools.DotNetCore.Build
                 throw new ArgumentNullException("settings");
             }
 
-            Run(settings, GetArguments(path, settings));
+            Run(settings, GetArguments(project, settings));
         }
 
-        private ProcessArgumentBuilder GetArguments(string path, DotNetCoreBuildSettings settings)
+        private ProcessArgumentBuilder GetArguments(string project, DotNetCoreBuildSettings settings)
         {
             var builder = CreateArgumentBuilder(settings);
 
             builder.Append("build");
 
             // Specific path?
-            if (path != null)
+            if (project != null)
             {
-                builder.AppendQuoted(path);
+                builder.AppendQuoted(project);
             }
 
             // Output directory
@@ -100,6 +100,13 @@ namespace Cake.Common.Tools.DotNetCore.Build
             {
                 builder.Append("--arch");
                 builder.Append(settings.Architecture.Value.ToString());
+            }
+
+            // Version suffix
+            if (!string.IsNullOrEmpty(settings.VersionSuffix))
+            {
+                builder.Append("--version-suffix");
+                builder.Append(settings.VersionSuffix);
             }
 
             // Native
@@ -158,6 +165,12 @@ namespace Cake.Common.Tools.DotNetCore.Build
             if (settings.NoIncremental)
             {
                 builder.Append("--no-incremental");
+            }
+
+            // No Incremental
+            if (settings.NoDependencies)
+            {
+                builder.Append("--no-dependencies");
             }
 
             return builder;

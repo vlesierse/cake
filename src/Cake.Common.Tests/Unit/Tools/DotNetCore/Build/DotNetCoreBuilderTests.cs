@@ -14,7 +14,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
             {
                 // Given
                 var fixture = new DotNetCoreBuilderFixture();
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
                 fixture.Settings = null;
                 fixture.GivenDefaultToolDoNotExist();
 
@@ -45,7 +45,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
             {
                 // Given
                 var fixture = new DotNetCoreBuilderFixture();
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
                 fixture.GivenDefaultToolDoNotExist();
 
                 // When
@@ -60,7 +60,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
             {
                 // Given
                 var fixture = new DotNetCoreBuilderFixture();
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
                 fixture.GivenProcessCannotStart();
 
                 // When
@@ -75,7 +75,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
             {
                 // Given
                 var fixture = new DotNetCoreBuilderFixture();
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
                 fixture.GivenProcessExitsWithCode(1);
 
                 // When
@@ -90,7 +90,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
             {
                 // Given
                 var fixture = new DotNetCoreBuilderFixture();
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
 
                 // When
                 var result = fixture.Run();
@@ -108,13 +108,14 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
                 fixture.Settings.Runtime = "runtime1";
                 fixture.Settings.Configuration = "Release";
                 fixture.Settings.Architecture = DotNetCoreArchitecture.x64;
-                fixture.Path = "./src/*";
+                fixture.Settings.VersionSuffix = "rc1";
+                fixture.Project = "./src/*";
 
                 // When
                 var result = fixture.Run();
 
                 // Then
-                Assert.Equal("build \"./src/*\" --runtime runtime1 --framework \"net451;dnxcore50\" --configuration Release --arch x64", result.Args);
+                Assert.Equal("build \"./src/*\" --runtime runtime1 --framework \"net451;dnxcore50\" --configuration Release --arch x64 --version-suffix rc1", result.Args);
             }
 
             [Fact]
@@ -126,7 +127,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
                 fixture.Settings.ILCompilerArguments = "--args";
                 fixture.Settings.ILCompilerSDKPath = "./compiler/";
                 fixture.Settings.ApplicationDependencySDKPath = "./sdk/";
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
 
                 // When
                 var result = fixture.Run();
@@ -147,7 +148,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
                 fixture.Settings.Native = true;
                 fixture.Settings.Cpp = true;
                 fixture.Settings.CppCompilerFlags = "FLAG=1";
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
 
                 // When
                 var result = fixture.Run();
@@ -162,7 +163,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
                 // Given
                 var fixture = new DotNetCoreBuilderFixture();
                 fixture.Settings.OutputDirectory = "./artifacts/";
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
 
                 // When
                 var result = fixture.Run();
@@ -179,13 +180,14 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
                 fixture.Settings.BuildBasePath = "./temp/";
                 fixture.Settings.BuildProfile = true;
                 fixture.Settings.NoIncremental = true;
-                fixture.Path = "./src/*";
+                fixture.Settings.NoDependencies = true;
+                fixture.Project = "./src/*";
 
                 // When
                 var result = fixture.Run();
 
                 // Then
-                Assert.Equal("build \"./src/*\" --build-base-path \"/Working/temp\" --build-profile --no-incremental", result.Args);
+                Assert.Equal("build \"./src/*\" --build-base-path \"/Working/temp\" --build-profile --no-incremental --no-dependencies", result.Args);
             }
         }
     }
