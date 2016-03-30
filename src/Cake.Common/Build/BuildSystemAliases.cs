@@ -1,7 +1,9 @@
 ﻿using System;
 using Cake.Common.Build.AppVeyor;
 using Cake.Common.Build.Bamboo;
+using Cake.Common.Build.Bitrise;
 using Cake.Common.Build.ContinuaCI;
+using Cake.Common.Build.Jenkins;
 using Cake.Common.Build.MyGet;
 using Cake.Common.Build.TeamCity;
 using Cake.Core;
@@ -34,12 +36,14 @@ namespace Cake.Common.Build
                 throw new ArgumentNullException("context");
             }
             var appVeyorProvider = new AppVeyorProvider(context.Environment, context.ProcessRunner);
-            var teamCityProvider = new TeamCityProvider(context.Environment);
+            var teamCityProvider = new TeamCityProvider(context.Environment, context.Log);
             var myGetProvider = new MyGetProvider(context.Environment);
             var bambooProvider = new BambooProvider(context.Environment);
-            var continuaCIProvider = new ContinuaCIProvider(context.Environment);  
+            var continuaCIProvider = new ContinuaCIProvider(context.Environment);
+            var jenkinsProvider = new JenkinsProvider(context.Environment);
+            var bitriseProvider = new BitriseProvider(context.Environment);
 
-            return new BuildSystem(appVeyorProvider, teamCityProvider, myGetProvider, bambooProvider, continuaCIProvider);
+            return new BuildSystem(appVeyorProvider, teamCityProvider, myGetProvider, bambooProvider, continuaCIProvider, jenkinsProvider, bitriseProvider);
         }
 
         /// <summary>
@@ -152,6 +156,54 @@ namespace Cake.Common.Build
             }
             var buildSystem = context.BuildSystem();
             return buildSystem.ContinuaCI;
+        }
+
+        /// <summary>
+        /// Get a <see cref="JenkinsProvider"/> instance that can be user to
+        /// obtain information from the Jenkins environment.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// var isJenkinsBuild = Jenkins.IsRunningOnJenkins;
+        /// </code>
+        /// </example>
+        /// <param name="context">The context.</param>
+        /// <returns>A <see cref="Cake.Common.Build.Jenkins"/> instance.</returns>
+        [CakePropertyAlias(Cache = true)]
+        [CakeNamespaceImport("Cake.Common.Build.Jenkins")]
+        [CakeNamespaceImport("Cake.Common.Build.Jenkins.Data")]
+        public static IJenkinsProvider Jenkins(this ICakeContext context)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException("context");
+            }
+            var buildSystem = context.BuildSystem();
+            return buildSystem.Jenkins;
+        }
+
+        /// <summary>
+        /// Get a <see cref="BitriseProvider"/> instance that can be user to
+        /// obtain information from the Bitrise environment.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// var isBitriseBuild = Bitrise.IsRunningOnBitrise;
+        /// </code>
+        /// </example>
+        /// <param name="context">The context.</param>
+        /// <returns>A <see cref="Cake.Common.Build.Bitrise"/> instance.</returns>
+        [CakePropertyAlias(Cache = true)]
+        [CakeNamespaceImport("Cake.Common.Build.Bitrise")]
+        [CakeNamespaceImport("Cake.Common.Build.Bitrise.Data")]
+        public static IBitriseProvider Bitrise(this ICakeContext context)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException("context");
+            }
+            var buildSystem = context.BuildSystem();
+            return buildSystem.Bitrise;
         }
     }
 }
