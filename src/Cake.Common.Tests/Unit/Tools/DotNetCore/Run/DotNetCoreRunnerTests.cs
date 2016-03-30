@@ -13,7 +13,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Run
             {
                 // Given
                 var fixture = new DotNetCoreRunnerFixture();
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
                 fixture.Settings = null;
                 fixture.GivenDefaultToolDoNotExist();
 
@@ -29,7 +29,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Run
             {
                 // Given
                 var fixture = new DotNetCoreRunnerFixture();
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
                 fixture.GivenDefaultToolDoNotExist();
 
                 // When
@@ -44,7 +44,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Run
             {
                 // Given
                 var fixture = new DotNetCoreRunnerFixture();
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
                 fixture.GivenProcessCannotStart();
 
                 // When
@@ -59,7 +59,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Run
             {
                 // Given
                 var fixture = new DotNetCoreRunnerFixture();
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
                 fixture.GivenProcessExitsWithCode(1);
 
                 // When
@@ -87,7 +87,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Run
             {
                 // Given
                 var fixture = new DotNetCoreRunnerFixture();
-                fixture.Path = "./tools/tool/";
+                fixture.Project = "./tools/tool/";
                 fixture.Arguments = "--args";
                 // When
                 var result = fixture.Run();

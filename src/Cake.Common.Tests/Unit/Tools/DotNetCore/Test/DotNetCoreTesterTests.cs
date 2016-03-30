@@ -6,14 +6,14 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Test
 {
     public sealed class DotNetCoreTesterTests
     {
-        public sealed class TheRunMethod
+        public sealed class TheTestMethod
         {
             [Fact]
             public void Should_Throw_If_Settings_Are_Null()
             {
                 // Given
                 var fixture = new DotNetCoreTesterFixture();
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
                 fixture.Settings = null;
                 fixture.GivenDefaultToolDoNotExist();
 
@@ -29,7 +29,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Test
             {
                 // Given
                 var fixture = new DotNetCoreTesterFixture();
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
                 fixture.GivenDefaultToolDoNotExist();
 
                 // When
@@ -44,7 +44,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Test
             {
                 // Given
                 var fixture = new DotNetCoreTesterFixture();
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
                 fixture.GivenProcessCannotStart();
 
                 // When
@@ -59,7 +59,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Test
             {
                 // Given
                 var fixture = new DotNetCoreTesterFixture();
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
                 fixture.GivenProcessExitsWithCode(1);
 
                 // When
@@ -87,7 +87,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Test
             {
                 // Given
                 var fixture = new DotNetCoreTesterFixture();
-                fixture.Path = "./test/Project.Tests/";
+                fixture.Project = "./test/Project.Tests/";
                 // When
                 var result = fixture.Run();
 
@@ -100,13 +100,17 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Test
             {
                 // Given
                 var fixture = new DotNetCoreTesterFixture();
+                fixture.Settings.BuildBasePath = "./temp/";
+                fixture.Settings.NoBuild = true;
+                fixture.Settings.Framework = "dnxcore50";
+                fixture.Settings.Runtime = "runtime1";
                 fixture.Settings.Configuration = "Release";
                 fixture.Settings.OutputDirectory = "./artifacts/";
                 // When
                 var result = fixture.Run();
 
                 // Then
-                Assert.Equal("test --configuration Release --output \"/Working/artifacts\"", result.Args);
+                Assert.Equal("test --output \"/Working/artifacts\" --build-base-path \"/Working/temp\" --runtime runtime1 --framework dnxcore50 --configuration Release --no-build", result.Args);
             }
         }
     }

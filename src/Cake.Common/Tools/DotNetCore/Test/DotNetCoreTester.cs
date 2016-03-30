@@ -31,28 +31,56 @@ namespace Cake.Common.Tools.DotNetCore.Test
         /// <summary>
         /// Tests the project using the specified path with arguments and settings.
         /// </summary>
-        /// <param name="path">The target file path.</param>
+        /// <param name="project">The target project path.</param>
         /// <param name="settings">The settings.</param>
-        public void Test(string path, DotNetCoreTestSettings settings)
+        public void Test(string project, DotNetCoreTestSettings settings)
         {
             if (settings == null)
             {
                 throw new ArgumentNullException("settings");
             }
 
-            Run(settings, GetArguments(path, settings));
+            Run(settings, GetArguments(project, settings));
         }
 
-        private ProcessArgumentBuilder GetArguments(string path, DotNetCoreTestSettings settings)
+        private ProcessArgumentBuilder GetArguments(string project, DotNetCoreTestSettings settings)
         {
             var builder = CreateArgumentBuilder(settings);
 
             builder.Append("test");
 
             // Specific path?
-            if (path != null)
+            if (project != null)
             {
-                builder.AppendQuoted(path);
+                builder.AppendQuoted(project);
+            }
+
+            // Output directory
+            if (settings.OutputDirectory != null)
+            {
+                builder.Append("--output");
+                builder.AppendQuoted(settings.OutputDirectory.MakeAbsolute(_environment).FullPath);
+            }
+
+            // Temporary output directory
+            if (settings.BuildBasePath != null)
+            {
+                builder.Append("--build-base-path");
+                builder.AppendQuoted(settings.BuildBasePath.MakeAbsolute(_environment).FullPath);
+            }
+
+            // Runtime
+            if (!string.IsNullOrEmpty(settings.Runtime))
+            {
+                builder.Append("--runtime");
+                builder.Append(settings.Runtime);
+            }
+
+            // Frameworks
+            if (!string.IsNullOrEmpty(settings.Framework))
+            {
+                builder.Append("--framework");
+                builder.Append(settings.Framework);
             }
 
             // Configuration
@@ -62,11 +90,9 @@ namespace Cake.Common.Tools.DotNetCore.Test
                 builder.Append(settings.Configuration);
             }
 
-            // Output directory
-            if (settings.OutputDirectory != null)
+            if (settings.NoBuild)
             {
-                builder.Append("--output");
-                builder.AppendQuoted(settings.OutputDirectory.MakeAbsolute(_environment).FullPath);
+                builder.Append("--no-build");
             }
 
             return builder;

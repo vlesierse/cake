@@ -31,28 +31,28 @@ namespace Cake.Common.Tools.DotNetCore.Restore
         /// <summary>
         /// Restore the project using the specified path and settings.
         /// </summary>
-        /// <param name="path">The target file path.</param>
+        /// <param name="root">List of projects and project folders to restore. Each value can be: a path to a project.json or global.json file, or a folder to recursively search for project.json files.</param>
         /// <param name="settings">The settings.</param>
-        public void Restore(string path, DotNetCoreRestoreSettings settings)
+        public void Restore(string root, DotNetCoreRestoreSettings settings)
         {
             if (settings == null)
             {
                 throw new ArgumentNullException("settings");
             }
 
-            Run(settings, GetArguments(path, settings));
+            Run(settings, GetArguments(root, settings));
         }
 
-        private ProcessArgumentBuilder GetArguments(string path, DotNetCoreRestoreSettings settings)
+        private ProcessArgumentBuilder GetArguments(string root, DotNetCoreRestoreSettings settings)
         {
             var builder = CreateArgumentBuilder(settings);
 
             builder.Append("restore");
 
-            // Specific path?
-            if (path != null)
+            // Specific root?
+            if (root != null)
             {
-                builder.Append(path);
+                builder.Append(root);
             }
 
             // Output directory
@@ -76,11 +76,18 @@ namespace Cake.Common.Tools.DotNetCore.Restore
                 builder.AppendQuoted(string.Join(";", settings.FallbackSources));
             }
 
-            // List of runtime identifiers
-            if (settings.Runtimes != null && settings.Runtimes.Count > 0)
+            // Config file
+            if (settings.ConfigFile != null)
             {
-                builder.Append("--runtime");
-                builder.AppendQuoted(string.Join(";", settings.Runtimes));
+                builder.Append("--configfile");
+                builder.AppendQuoted(settings.ConfigFile.MakeAbsolute(_environment).FullPath);
+            }
+
+            // List of runtime identifiers
+            if (settings.InferRuntimes != null && settings.InferRuntimes.Count > 0)
+            {
+                builder.Append("--infer-runtimes");
+                builder.AppendQuoted(string.Join(";", settings.InferRuntimes));
             }
 
             // Quiet
@@ -89,10 +96,22 @@ namespace Cake.Common.Tools.DotNetCore.Restore
                 builder.Append("--quiet");
             }
 
+            // Ignore failed sources
+            if (settings.NoCache)
+            {
+                builder.Append("--no-cache");
+            }
+
             // Disable parallel
             if (settings.DisableParallel)
             {
                 builder.Append("--disable-parallel");
+            }
+
+            // Ignore failed sources
+            if (settings.IgnoreFailedSources)
+            {
+                builder.Append("--ignore-failed-sources");
             }
 
             // Verbosity

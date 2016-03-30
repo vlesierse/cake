@@ -80,11 +80,11 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Pack
             }
 
             [Fact]
-            public void Should_Add_Path()
+            public void Should_Add_Project()
             {
                 // Given
                 var fixture = new DotNetCorePackFixture();
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
 
                 // When
                 var result = fixture.Run();

@@ -84,7 +84,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Publish
             {
                 // Given
                 var fixture = new DotNetCorePublisherFixture();
-                fixture.Path = "./src/*";
+                fixture.Project = "./src/*";
 
                 // When
                 var result = fixture.Run();
@@ -103,12 +103,13 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Publish
                 fixture.Settings.Runtime = "runtime1";
                 fixture.Settings.BuildBasePath = "./temp/";
                 fixture.Settings.OutputDirectory = "./artifacts/";
+                fixture.Settings.VersionSuffix = "rc1";
 
                 // When
                 var result = fixture.Run();
 
                 // Then
-                Assert.Equal("publish --output \"/Working/artifacts\" --build-base-path \"/Working/temp\" --runtime runtime1 --framework dnxcore50 --configuration Release", result.Args);
+                Assert.Equal("publish --output \"/Working/artifacts\" --build-base-path \"/Working/temp\" --runtime runtime1 --framework dnxcore50 --configuration Release --version-suffix rc1", result.Args);
             }
         }
     }

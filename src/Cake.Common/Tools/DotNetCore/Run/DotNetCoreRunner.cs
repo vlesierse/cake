@@ -28,30 +28,30 @@ namespace Cake.Common.Tools.DotNetCore.Run
         /// <summary>
         /// Runs the project using the specified path with arguments and settings.
         /// </summary>
-        /// <param name="path">The target file path.</param>
+        /// <param name="project">The target project path.</param>
         /// <param name="arguments">The arguments.</param>
         /// <param name="settings">The settings.</param>
-        public void Run(string path, string arguments, DotNetCoreRunSettings settings)
+        public void Run(string project, string arguments, DotNetCoreRunSettings settings)
         {
             if (settings == null)
             {
                 throw new ArgumentNullException("settings");
             }
 
-            Run(settings, GetArguments(path, arguments, settings));
+            Run(settings, GetArguments(project, arguments, settings));
         }
 
-        private ProcessArgumentBuilder GetArguments(string path, string arguments, DotNetCoreRunSettings settings)
+        private ProcessArgumentBuilder GetArguments(string project, string arguments, DotNetCoreRunSettings settings)
         {
             var builder = CreateArgumentBuilder(settings);
 
             builder.Append("run");
 
             // Specific path?
-            if (path != null)
+            if (project != null)
             {
                 builder.Append("--project");
-                builder.AppendQuoted(path);
+                builder.AppendQuoted(project);
             }
 
             // Framework
