@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Cake.Core;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
@@ -12,6 +14,9 @@ namespace Cake.Common.Tools.DotNetCore
     public abstract class DotNetCoreTool<TSettings> : Tool<TSettings>
         where TSettings : DotNetCoreSettings
     {
+        private readonly ICakeEnvironment _environment;
+        private readonly IFileSystem _fileSystem;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DotNetCoreTool{TSettings}" /> class.
         /// </summary>
@@ -26,6 +31,8 @@ namespace Cake.Common.Tools.DotNetCore
             IGlobber globber)
             : base(fileSystem, environment, processRunner, globber)
         {
+            _fileSystem = fileSystem;
+            _environment = environment;
         }
 
         /// <summary>
@@ -61,6 +68,28 @@ namespace Cake.Common.Tools.DotNetCore
             }
 
             return builder;
+        }
+
+        /// <summary>
+        /// Gets alternative file paths which the tool may exist in
+        /// </summary>
+        /// <param name="settings">The settings.</param>
+        /// <returns>The default tool path.</returns>
+        protected override IEnumerable<FilePath> GetAlternativeToolPaths(TSettings settings)
+        {
+            if (settings == null)
+            {
+                throw new ArgumentNullException("settings");
+            }
+
+            var path = DotNetCoreResolver.GetDotNetCorePath(_fileSystem, _environment);
+
+            if (path != null)
+            {
+                return new[] { path };
+            }
+
+            return Enumerable.Empty<FilePath>();
         }
     }
 }

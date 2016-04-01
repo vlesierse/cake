@@ -187,6 +187,7 @@
     <Compile Include="Tools\DotNetCore\Build\DotNetCoreBuildSettings.cs" />
     <Compile Include="Tools\DotNetCore\Build\DotNetCoreArchitecture.cs" />
     <Compile Include="Tools\DotNetCore\DotNetCoreAliases.cs" />
+    <Compile Include="Tools\DotNetCore\DotNetCoreResolver.cs" />
     <Compile Include="Tools\DotNetCore\DotNetCoreSettings.cs" />
     <Compile Include="Tools\DotNetCore\DotNetCoreTool.cs" />
     <Compile Include="Tools\DotNetCore\Command\DotNetCoreCommandExecutor.cs" />

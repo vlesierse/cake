@@ -41,21 +41,6 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
             }
 
             [Fact]
-            public void Should_Throw_If_DotNet_Executable_Was_Not_Found()
-            {
-                // Given
-                var fixture = new DotNetCoreBuilderFixture();
-                fixture.Project = "./src/*";
-                fixture.GivenDefaultToolDoNotExist();
-
-                // When
-                var result = Record.Exception(() => fixture.Run());
-
-                // Then
-                Assert.IsCakeException(result, "DotNetCore: Could not locate executable.");
-            }
-
-            [Fact]
             public void Should_Throw_If_Process_Was_Not_Started()
             {
                 // Given
