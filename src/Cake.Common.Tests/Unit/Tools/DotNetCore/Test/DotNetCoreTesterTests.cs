@@ -77,7 +77,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Test
                 var result = fixture.Run();
 
                 // Then
-                Assert.Equal("test \"./test/Project.Tests/\"", result.Args);
+                Assert.Equal("test ./test/Project.Tests/", result.Args);
             }
 
             [Fact]

@@ -76,7 +76,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Publish
                 var result = fixture.Run();
 
                 // Then
-                Assert.Equal("publish \"./src/*\"", result.Args);
+                Assert.Equal("publish ./src/*", result.Args);
             }
 
             [Fact]

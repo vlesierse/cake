@@ -81,7 +81,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
                 var result = fixture.Run();
 
                 // Then
-                Assert.Equal("build \"./src/*\"", result.Args);
+                Assert.Equal("build ./src/*", result.Args);
             }
 
             [Fact]
@@ -100,7 +100,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
                 var result = fixture.Run();
 
                 // Then
-                Assert.Equal("build \"./src/*\" --runtime runtime1 --framework \"net451;dnxcore50\" --configuration Release --arch x64 --version-suffix rc1", result.Args);
+                Assert.Equal("build ./src/* --runtime runtime1 --framework \"net451;dnxcore50\" --configuration Release --arch x64 --version-suffix rc1", result.Args);
             }
 
             [Fact]
@@ -118,7 +118,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
                 var result = fixture.Run();
 
                 // Then
-                Assert.Equal("build \"./src/*\"" +
+                Assert.Equal("build ./src/*" +
                              " --ilcpath \"/Working/compiler/csc.exe\"" +
                              " --ilcargs \"--args\"" +
                              " --ilcsdkpath \"/Working/compiler\"" +
@@ -139,7 +139,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
                 var result = fixture.Run();
 
                 // Then
-                Assert.Equal("build \"./src/*\" --native --cpp --cppcompilerflags FLAG=1", result.Args);
+                Assert.Equal("build ./src/* --native --cpp --cppcompilerflags FLAG=1", result.Args);
             }
 
             [Fact]
@@ -154,7 +154,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
                 var result = fixture.Run();
 
                 // Then
-                Assert.Equal("build \"./src/*\" --output \"/Working/artifacts\"", result.Args);
+                Assert.Equal("build ./src/* --output \"/Working/artifacts\"", result.Args);
             }
 
             [Fact]
@@ -172,7 +172,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
                 var result = fixture.Run();
 
                 // Then
-                Assert.Equal("build \"./src/*\" --build-base-path \"/Working/temp\" --build-profile --no-incremental --no-dependencies", result.Args);
+                Assert.Equal("build ./src/* --build-base-path \"/Working/temp\" --build-profile --no-incremental --no-dependencies", result.Args);
             }
         }
     }

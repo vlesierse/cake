@@ -52,7 +52,7 @@ namespace Cake.Common.Tools.DotNetCore.Publish
             // Specific path?
             if (path != null)
             {
-                builder.AppendQuoted(path);
+                builder.Append(path);
             }
 
             // Output directory
