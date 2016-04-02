@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Cake.Core;
 using Cake.Core.IO;
 
@@ -8,12 +7,10 @@ namespace Cake.Common.Tools.DotNetCore
     internal static class DotNetCoreResolver
     {
         private static ICakeEnvironment _environment;
-        private static IFileSystem _fileSystem;
 
-        public static FilePath GetDotNetCorePath(IFileSystem fileSystem, ICakeEnvironment environment)
+        public static FilePath GetDotNetCorePath(ICakeEnvironment environment)
         {
             _environment = environment;
-            _fileSystem = fileSystem;
 
             if (_environment.IsUnix())
             {
