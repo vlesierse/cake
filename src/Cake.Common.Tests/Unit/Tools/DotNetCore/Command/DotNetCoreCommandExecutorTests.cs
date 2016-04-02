@@ -92,7 +92,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Build
                 var result = fixture.Run();
 
                 // Then
-                Assert.Equal("command \"./tools/tool/\" --arg", result.Args);
+                Assert.Equal("command ./tools/tool/ --arg", result.Args);
             }
 
             [Fact]

@@ -76,7 +76,7 @@ namespace Cake.Common.Tests.Unit.Tools.DotNetCore.Pack
                 var result = fixture.Run();
 
                 // Then
-                Assert.Equal("pack \"./src/*\"", result.Args);
+                Assert.Equal("pack ./src/*", result.Args);
             }
 
             [Fact]
