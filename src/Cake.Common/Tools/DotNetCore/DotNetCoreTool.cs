@@ -15,7 +15,6 @@ namespace Cake.Common.Tools.DotNetCore
         where TSettings : DotNetCoreSettings
     {
         private readonly ICakeEnvironment _environment;
-        private readonly IFileSystem _fileSystem;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DotNetCoreTool{TSettings}" /> class.
@@ -31,7 +30,6 @@ namespace Cake.Common.Tools.DotNetCore
             IGlobber globber)
             : base(fileSystem, environment, processRunner, globber)
         {
-            _fileSystem = fileSystem;
             _environment = environment;
         }
 
@@ -82,7 +80,7 @@ namespace Cake.Common.Tools.DotNetCore
                 throw new ArgumentNullException("settings");
             }
 
-            var path = DotNetCoreResolver.GetDotNetCorePath(_fileSystem, _environment);
+            var path = DotNetCoreResolver.GetDotNetCorePath(_environment);
 
             if (path != null)
             {
