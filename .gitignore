@@ -5,6 +5,7 @@
 [Ll]ib/
 [Pp]ackages/
 /[Bb]uild/
+/[Aa]rtifacts/
 *.sln.ide/
 
 # Build related
@@ -15,6 +16,7 @@ tools/xunit.runner.console/
 tools/nuget.exe
 tools/gitreleasemanager/
 tools/GitVersion.CommandLine/
+tools/Addins/
 
 # mstest test results
 TestResults
