@@ -113,16 +113,7 @@
     <Compile Include="Fixtures\Tools\DotNetCore\Publish\DotNetCorePublisherFixture.cs" />
     <Compile Include="Fixtures\Tools\DotNetCore\Restore\DotNetCoreRestorerFixture.cs" />
     <Compile Include="Fixtures\Tools\DotNetCore\Run\DotNetCoreRunnerFixture.cs" />
-<<<<<<< 705901cb0899c5993cf8e67a1c70054ff37b3a22
-=======
     <Compile Include="Fixtures\Tools\DotNetCore\Test\DotNetCoreTesterFixture.cs" />
-    <Compile Include="Fixtures\Tools\SpecFlow\StepDefinitionReport\SpecFlowStepDefinitionReporterFixture.cs" />
-    <Compile Include="Fixtures\Tools\SpecFlow\TestExecutionReport\SpecFlowTestExecutionReporterFixture.cs" />
-    <Compile Include="Fixtures\Tools\SpecFlow\SpecFlowFixture.cs" />
-    <Compile Include="Fixtures\Tools\DotCover\Analyse\DotCoverAnalyserFixture.cs" />
-    <Compile Include="Fixtures\Tools\DotCover\Cover\DotCoverCovererFixture.cs" />
-    <Compile Include="Fixtures\Tools\DotCover\DotCoverFixture.cs" />
->>>>>>> Bring up-to-date with .NET Core CLI 1.0.0-beta-002115
     <Compile Include="Fixtures\Tools\DupFinder\DupFinderRunnerConfigFixture.cs" />
     <Compile Include="Fixtures\Tools\DupFinder\DupFinderRunnerFixture.cs" />
     <Compile Include="Fixtures\Tools\FixieRunnerFixture.cs" />
